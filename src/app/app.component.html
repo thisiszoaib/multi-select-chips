@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  Multi select chip control
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+<div class="content">
+  <app-chips-multi-select [options]="options" [formControl]="chipsControl">
+  </app-chips-multi-select>
+
+  <mat-divider></mat-divider>
+
+  <h3>Value: {{chipsControlValue$ | async}}</h3>
+
+  <mat-divider></mat-divider>
+
+  <mat-checkbox [formControl]="disabledControl">Disabled</mat-checkbox>
+
+  <mat-divider></mat-divider>
+
+  <button mat-raised-button (click)="setChipsValue()">Patch Value</button>
+
+</div>
