@@ -7,8 +7,10 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatChip, MatChipList } from '@angular/material/chips';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map } from 'rxjs/operators';
 
+@UntilDestroy()
 @Component({
   selector: 'app-chips-multi-select',
   templateUrl: './chips-multi-select.component.html',
@@ -65,7 +67,10 @@ export class ChipsMultiSelectComponent
     this.selectChips(this.value);
 
     this.chipList.chipSelectionChanges
-      .pipe(map((event) => event.source))
+      .pipe(
+        untilDestroyed(this),
+        map((event) => event.source)
+      )
       .subscribe((chip) => {
         if (chip.selected) {
           this.value = [...this.value, chip.value];
